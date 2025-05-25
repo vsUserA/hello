@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mobile-Friendly Dropdown Menu</title>
+    <style>
+        /* Basic styling for the dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+        }
+        
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .dropdown.active .dropdown-content {
+            display: block;
+        }
+        
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+        
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .dropdown {
+                width: 100%;
+            }
+            
+            .dropdown-content {
+                width: 100%;
+                position: relative;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Mobile-Friendly Dropdown</h2>
+    
+    <div class="dropdown" id="myDropdown">
+        <button class="dropdown-button" onclick="toggleDropdown()">
+            Products ▼
+        </button>
+        <div class="dropdown-content">
+            <a href="#">
+                <img src="https://via.placeholder.com/24/4CAF50/FFFFFF?text=L" alt="Laptop" class="menu-icon">
+                Laptops
+            </a>
+            <a href="#">
+                <img src="https://via.placeholder.com/24/2196F3/FFFFFF?text=P" alt="Phone" class="menu-icon">
+                Phones
+            </a>
+            <a href="#">
+                <img src="https://via.placeholder.com/24/FF9800/FFFFFF?text=T" alt="Tablet" class="menu-icon">
+                Tablets
+            </a>
+            <a href="#">
+                <img src="https://via.placeholder.com/24/607D8B/FFFFFF?text=A" alt="Accessory" class="menu-icon">
+                Accessories
+            </a>
+        </div>
+    </div>
+
+    <p>Click the "Products" button to see the dropdown menu.</p>
+
+    <script>
+        function toggleDropdown() {
+            document.getElementById("myDropdown").classList.toggle("active");
+        }
+        
+        // Close the dropdown if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown-button')) {
+                var dropdowns = document.getElementsByClassName("dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('active')) {
+                        openDropdown.classList.remove('active');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
