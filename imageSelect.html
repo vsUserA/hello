@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dropdown with Selection Display</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+        
+        .dropdown-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            width: 100%;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+        
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .dropdown.active .dropdown-content {
+            display: block;
+        }
+        
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+        
+        .selected-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .arrow {
+            transition: transform 0.3s;
+        }
+        
+        .dropdown.active .arrow {
+            transform: rotate(180deg);
+        }
+        
+        /* Selection display area */
+        .selection-display {
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .selection-display img {
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .dropdown-content {
+                position: relative;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Product Selector</h2>
+    
+    <div class="dropdown" id="myDropdown">
+        <button class="dropdown-button" onclick="toggleDropdown()">
+            <span class="selected-item">
+                <img id="selected-icon" src="https://via.placeholder.com/24/cccccc/999999?text=?" alt="Selected" class="menu-icon">
+                <span id="selected-text">Select a product</span>
+            </span>
+            <span class="arrow">▼</span>
+        </button>
+        <div class="dropdown-content">
+            <a href="#" onclick="selectItem('Laptops', 'https://via.placeholder.com/24/4CAF50/FFFFFF?text=L')">
+                <img src="https://via.placeholder.com/24/4CAF50/FFFFFF?text=L" alt="Laptop" class="menu-icon">
+                Laptops
+            </a>
+            <a href="#" onclick="selectItem('Phones', 'https://via.placeholder.com/24/2196F3/FFFFFF?text=P')">
+                <img src="https://via.placeholder.com/24/2196F3/FFFFFF?text=P" alt="Phone" class="menu-icon">
+                Phones
+            </a>
+            <a href="#" onclick="selectItem('Tablets', 'https://via.placeholder.com/24/FF9800/FFFFFF?text=T')">
+                <img src="https://via.placeholder.com/24/FF9800/FFFFFF?text=T" alt="Tablet" class="menu-icon">
+                Tablets
+            </a>
+            <a href="#" onclick="selectItem('Accessories', 'https://via.placeholder.com/24/607D8B/FFFFFF?text=A')">
+                <img src="https://via.placeholder.com/24/607D8B/FFFFFF?text=A" alt="Accessory" class="menu-icon">
+                Accessories
+            </a>
+        </div>
+    </div>
+    
+    <div class="selection-display" id="selectionDisplay">
+        You selected: <strong id="displayText"></strong>
+        <img id="displayIcon" src="" alt="" class="menu-icon">
+    </div>
+
+    <script>
+        function toggleDropdown() {
+            document.getElementById("myDropdown").classList.toggle("active");
+        }
+        
+        function selectItem(text, iconUrl) {
+            // Update the button display
+            document.getElementById("selected-text").textContent = text;
+            document.getElementById("selected-icon").src = iconUrl;
+            document.getElementById("selected-icon").alt = text;
+            
+            // Update the selection display
+            document.getElementById("displayText").textContent = text;
+            document.getElementById("displayIcon").src = iconUrl;
+            document.getElementById("displayIcon").alt = text;
+            document.getElementById("selectionDisplay").style.display = 'block';
+            
+            // Close the dropdown
+            document.getElementById("myDropdown").classList.remove("active");
+            
+            // Prevent default link behavior
+            return false;
+        }
+        
+        // Close the dropdown if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown-button') && !event.target.closest('.dropdown-button')) {
+                var dropdowns = document.getElementsByClassName("dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('active')) {
+                        openDropdown.classList.remove('active');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
